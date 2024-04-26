@@ -1,13 +1,13 @@
-package com.universidade.registrouniversitario;
+package com.universidade.registro_universidade;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RegistroUniversitarioApplication {
+public class RegistroUniversidadeApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(RegistroUniversitarioApplication.class, args);
+		SpringApplication.run(RegistroUniversidadeApplication.class, args);
 	}
 
 }

@@ -1,7 +1,7 @@
-package com.universidade.registrouniversitario.controller;
+package com.universidade.registro_universidade.controller;
 
-import com.universidade.registrouniversitario.model.Aluno;
-import com.universidade.registrouniversitario.service.AlunoService;
+import com.universidade.registro_universidade.DTO.AlunoDTO;
+import com.universidade.registro_universidade.service.AlunoService;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolation;
@@ -77,10 +77,10 @@ public class AlunoContoller {
   }
 
   @PostMapping("/register")
-  public ResponseEntity<?> register(@RequestBody Aluno aluno) {
+  public ResponseEntity<?> register(@RequestBody AlunoDTO aluno) {
     try {
 
-      return ResponseEntity.ok(alunoService.register(aluno));
+      return ResponseEntity.ok(alunoService.save(aluno));
 
     } catch (ConstraintViolationException ex) {
       Map<String, Object> errorMap = new HashMap<>();
@@ -103,7 +103,7 @@ public class AlunoContoller {
 
   @PutMapping("/{id}")
   public ResponseEntity<?> update(
-      @RequestBody Aluno aluno,
+      @RequestBody AlunoDTO aluno,
       @PathVariable Integer id) {
     try {
       return ResponseEntity.ok(alunoService.update(aluno, id));

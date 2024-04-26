@@ -1,4 +1,4 @@
-package com.universidade.registrouniversitario.model;
+package com.universidade.registro_universidade.model;
 
 import org.hibernate.validator.constraints.br.CPF;
 import jakarta.persistence.Column;

@@ -1,4 +1,4 @@
-package com.universidade.registrouniversitario.repository;
+package com.universidade.registro_universidade.repository;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.universidade.registrouniversitario.model.Aluno;
+import com.universidade.registro_universidade.model.Aluno;
 
 @Repository
 public interface AlunoRepository extends JpaRepository<Aluno, Integer> {

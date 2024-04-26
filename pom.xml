@@ -6,17 +6,27 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.2.5</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
 	<groupId>com.universidade</groupId>
-	<artifactId>registro-universitario</artifactId>
+	<artifactId>registro_universidade</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>registro-universitario</name>
-	<description>Demo project for Spring Boot</description>
+	<name>registro_universidade</name>
+	<description>projeto para trabalho</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jdbc</artifactId>
@@ -59,25 +69,23 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>8.0.1.Final</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-crypto</artifactId>
+			<version>6.2.4</version>
+		</dependency>
 	</dependencies>
-	
 
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
 
 </project>
+
+
+<!--run pom mvn -q help:effective-pom -Doutput="C:\Users\thaua\Desktop\registro_universidade\registro_universidade\effective-pom.xml" -f "C:\Users\thaua\Desktop\registro_universidade\registro_universidade\pom.xml"-->

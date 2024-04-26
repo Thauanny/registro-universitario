@@ -1,10 +1,10 @@
-package com.universidade.registrouniversitario;
+package com.universidade.registro_universidade;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class RegistroUniversitarioApplicationTests {
+class RegistroUniversidadeApplicationTests {
 
 	@Test
 	void contextLoads() {
