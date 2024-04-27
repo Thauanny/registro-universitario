@@ -1,17 +1,15 @@
 package com.universidade.registro_universidade.controller;
 
+import com.universidade.registro_universidade.DTO.AlunoCreateDTO;
 import com.universidade.registro_universidade.DTO.AlunoDTO;
 import com.universidade.registro_universidade.service.AlunoService;
-
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,12 +33,10 @@ public class AlunoContoller {
   public ResponseEntity<?> aluno(@PathVariable Integer id) {
     try {
       return ResponseEntity.ok(alunoService.aluno(id));
-    }catch (EntityNotFoundException e) {
+    } catch (EntityNotFoundException e) {
       Map<String, String> map = new HashMap<>();
-            map.put("message", e.getMessage());
-      return ResponseEntity
-          .status(HttpStatus.BAD_REQUEST)
-          .body(map);
+      map.put("message", e.getMessage());
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
     } catch (Exception e) {
       return ResponseEntity
           .status(HttpStatus.BAD_REQUEST)
@@ -52,12 +48,6 @@ public class AlunoContoller {
   public ResponseEntity<?> alunosAtivosNaoAtivos() {
     try {
       return ResponseEntity.ok(alunoService.alunosAtivosNaoAtivos());
-    }catch (EntityNotFoundException e) {  
-      Map<String, String> map = new HashMap<>();
-            map.put("message", e.getMessage());
-      return ResponseEntity
-          .status(HttpStatus.BAD_REQUEST)
-          .body(map);
     } catch (Exception e) {
       return ResponseEntity
           .status(HttpStatus.BAD_REQUEST)
@@ -77,11 +67,9 @@ public class AlunoContoller {
   }
 
   @PostMapping("/register")
-  public ResponseEntity<?> register(@RequestBody AlunoDTO aluno) {
+  public ResponseEntity<?> register(@RequestBody AlunoCreateDTO aluno) {
     try {
-
       return ResponseEntity.ok(alunoService.save(aluno));
-
     } catch (ConstraintViolationException ex) {
       Map<String, Object> errorMap = new HashMap<>();
       List<String> errorMessages = new ArrayList<>();
@@ -90,10 +78,13 @@ public class AlunoContoller {
       }
       errorMap.put("message", errorMessages);
 
-      return ResponseEntity
-          .status(HttpStatus.BAD_REQUEST)
-          .body(errorMap);
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMap);
+    }
+    catch (IllegalArgumentException ex) {
+      Map<String, Object> errorMap = new HashMap<>();
+      errorMap.put("message",  ex.getMessage().replaceAll("raw", ""));
 
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMap);
     } catch (Exception e) {
       return ResponseEntity
           .status(HttpStatus.BAD_REQUEST)
@@ -107,6 +98,19 @@ public class AlunoContoller {
       @PathVariable Integer id) {
     try {
       return ResponseEntity.ok(alunoService.update(aluno, id));
+    } catch (EntityNotFoundException e) {
+      Map<String, String> map = new HashMap<>();
+      map.put("message", e.getMessage());
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+    } catch (ConstraintViolationException ex) {
+      Map<String, Object> errorMap = new HashMap<>();
+      List<String> errorMessages = new ArrayList<>();
+      for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
+        errorMessages.add(violation.getMessage());
+      }
+      errorMap.put("message", errorMessages);
+
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMap);
     } catch (Exception e) {
       return ResponseEntity
           .status(HttpStatus.BAD_REQUEST)

@@ -1,13 +1,10 @@
 package com.universidade.registro_universidade.model;
 
-import org.hibernate.validator.constraints.br.CPF;
+import com.universidade.registro_universidade.DTO.AlunoDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -21,32 +18,23 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "aluno")
-public class Aluno {
+public class Aluno extends Pessoa {
+    @NotNull
+    @NotEmpty
+    @Column(name = "curso")
+    private String curso;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "aluno_id")
-	private int aluno_id;
-    @NotNull
-    @NotEmpty
-    @Column(name = "username")
-	private String username;
-    @NotNull
-    @CPF
-    @NotEmpty
-    @Column(name = "cpf")
-    private String cpf;
-    @NotNull
-    @NotEmpty
-    @Column(name = "password")
-	private String password;
-    @Email
-    @NotNull
-    @NotEmpty
-    @Column(name = "email")
-	private String email;
-    @NotNull
-    @Column(name = "ativo")
-    private boolean ativo;
-
+    public AlunoDTO toDTO() {
+        AlunoDTO aluno = new AlunoDTO();
+        aluno.setId(this.getId());
+        aluno.setNome(this.getNome());
+        aluno.setEmail(this.getEmail());
+        aluno.setCpf(this.getCpf());
+        aluno.setAtivo(this.isAtivo());
+        aluno.setDataNascimento(this.getDataNascimento());
+        aluno.setCurso(this.getCurso());
+        aluno.setGenero(this.getGenero());
+        aluno.setMatricula(this.getMatricula());
+        return aluno;
+    }
 }

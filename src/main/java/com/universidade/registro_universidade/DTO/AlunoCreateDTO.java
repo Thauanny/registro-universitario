@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class AlunoDTO extends PessoaDTO {
+public class AlunoCreateDTO extends PessoaCreateDTO {
 
   @NotNull
   @NotEmpty
@@ -20,15 +20,16 @@ public class AlunoDTO extends PessoaDTO {
 
   public Aluno toEntity() {
     Aluno aluno = new Aluno();
-    aluno.setId(this.getId());
     aluno.setNome(this.getNome());
     aluno.setEmail(this.getEmail());
+    aluno.setPassword(this.getPassword());
     aluno.setCpf(this.getCpf());
-    aluno.setAtivo(this.isAtivo());
     aluno.setDataNascimento(this.getDataNascimento());
     aluno.setCurso(this.getCurso());
     aluno.setGenero(this.getGenero());
     aluno.setMatricula(this.getMatricula());
     return aluno;
   }
+
+
 }

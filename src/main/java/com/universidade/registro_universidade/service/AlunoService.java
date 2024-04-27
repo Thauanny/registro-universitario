@@ -1,9 +1,12 @@
 package com.universidade.registro_universidade.service;
 
+import com.universidade.registro_universidade.DTO.AlunoCreateDTO;
 import com.universidade.registro_universidade.DTO.AlunoDTO;
 import com.universidade.registro_universidade.model.Aluno;
 import com.universidade.registro_universidade.repository.AlunoRepository;
 import jakarta.persistence.EntityNotFoundException;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,58 +15,80 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AlunoService {
-    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+  BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
   @Autowired
   private AlunoRepository alunoRepository;
 
-  public Aluno aluno(Integer id) {
+  public AlunoDTO aluno(Integer id) {
     Optional<Aluno> alunoOptional = alunoRepository.findByIdWhere(id);
     if (alunoOptional.isPresent()) {
-      return alunoOptional.get();
+      return alunoOptional.get().toDTO();
     } else {
       throw new EntityNotFoundException(
-        "Aluno não encontrado para o ID: " + id
-      );
+          "Aluno não encontrado para o ID: " + id);
     }
   }
 
-  public List<Aluno> alunos() {
-    return alunoRepository.findAllWhere();
+  public List<AlunoDTO> alunos() {
+    List<AlunoDTO> alunoDTOs = new ArrayList<>();
+    List<Aluno> alunos = alunoRepository.findAllWhere();
+    for (int i = 0; i < alunos.size(); i++) {
+      alunoDTOs.add(alunos.get(i).toDTO()); 
+    }
+    return alunoDTOs;
   }
 
-  public List<Aluno> alunosAtivosNaoAtivos() {
-    return alunoRepository.findAll();
+  public List<AlunoDTO> alunosAtivosNaoAtivos() {
+    List<AlunoDTO> alunoDTOs = new ArrayList<>();
+    List<Aluno> alunos = alunoRepository.findAll();
+    for (int i = 0; i < alunos.size(); i++) {
+      alunoDTOs.add(alunos.get(i).toDTO()); 
+    }
+    return alunoDTOs;
   }
 
-  public Aluno save(AlunoDTO aluno) {
-
-    Aluno newAluno = new Aluno();
-    newAluno.setUsername(aluno.getUsername());
-    newAluno.setPassword(passwordEncoder.encode(aluno.getPassword()));
-    newAluno.setEmail(aluno.getEmail());
-    newAluno.setCpf(aluno.getCpf());
-    newAluno.setAtivo(true);
-    return alunoRepository.save(newAluno);
+  public AlunoDTO save(AlunoCreateDTO aluno) {
+    aluno.setPassword(passwordEncoder.encode(aluno.getPassword()));
+    Aluno alunoEntity = aluno.toEntity();
+    alunoEntity.setAtivo(true);
+    return alunoRepository.save(alunoEntity).toDTO();
   }
 
-  public Aluno update(AlunoDTO aluno, Integer id) {
-    Aluno responseAluno = aluno(id);
-    responseAluno.setUsername(aluno.getUsername());
-    responseAluno.setPassword(passwordEncoder.encode(aluno.getPassword()));
-    responseAluno.setEmail(aluno.getEmail());
-    responseAluno.setCpf(aluno.getCpf());
-    responseAluno.setAtivo(aluno.isAtivo());
-    return alunoRepository.save(responseAluno);
+  public AlunoDTO update(AlunoDTO aluno, Integer id) {
+    AlunoDTO responseAluno = aluno(id);
+    if(aluno.getNome() != null && !(aluno.getNome().isEmpty())){
+      responseAluno.setNome(aluno.getNome());
+    }
+    if(aluno.getEmail() != null && !(aluno.getEmail().isEmpty())){
+      responseAluno.setEmail(aluno.getEmail());
+    }
+    if(aluno.getCpf() != null && !(aluno.getCpf().isEmpty())){
+      responseAluno.setCpf(aluno.getCpf());
+    }
+    if(aluno.getCurso() != null && !(aluno.getCurso().isEmpty())){
+      responseAluno.setCurso(aluno.getCurso());
+    }
+    if(aluno.getMatricula() != null && !(aluno.getMatricula().isEmpty())){
+      responseAluno.setMatricula(aluno.getMatricula());
+    } 
+    if(aluno.getGenero() != null){
+      responseAluno.setGenero(aluno.getGenero());
+    }
+    if(aluno.getDataNascimento() != null && !(aluno.getDataNascimento().isEmpty())){
+      responseAluno.setDataNascimento(aluno.getDataNascimento());
+    } 
+    return alunoRepository.save(responseAluno.toEntity()).toDTO();
   }
 
   public void delete(Integer id) {
     alunoRepository.deleteById(id);
   }
 
-  public Aluno deleteLogic(Integer id) {
-    Aluno _aluno = aluno(id);
+  public AlunoDTO deleteLogic(Integer id) {
+    AlunoDTO _aluno = aluno(id);
     _aluno.setAtivo(false);
-   return alunoRepository.save(_aluno);
+    return alunoRepository.save(_aluno.toEntity()).toDTO();
   }
 }

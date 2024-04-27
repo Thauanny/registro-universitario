@@ -13,10 +13,16 @@ import com.universidade.registro_universidade.model.Aluno;
 @Repository
 public interface AlunoRepository extends JpaRepository<Aluno, Integer> {
    
-    @Query(value = "SELECT * FROM ALUNO WHERE ativo = true",  nativeQuery = true)
+    @Query(value = "SELECT ALUNO.*, PESSOA.*\n" + //
+                "FROM ALUNO\n" + //
+                "INNER JOIN PESSOA ON ALUNO.id = PESSOA.id\n" + //
+                "WHERE PESSOA.ativo = true",  nativeQuery = true)
     public  List<Aluno> findAllWhere();
 
    
-    @Query(value = "SELECT * FROM ALUNO WHERE aluno_id = :id AND ativo = true",  nativeQuery = true)
+    @Query(value = "SELECT ALUNO.*, PESSOA.*\n" + //
+                "FROM ALUNO\n" + //
+                "INNER JOIN PESSOA ON ALUNO.id = PESSOA.id\n" + //
+                "WHERE PESSOA.id = :id AND PESSOA.ativo = true",  nativeQuery = true)
     public  Optional<Aluno> findByIdWhere(@Param("id") Integer id);
 }
