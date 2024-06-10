@@ -1,7 +1,5 @@
 package com.universidade.registro_universidade.service;
 
-import com.universidade.registro_universidade.DTO.AlunoDTO;
-import com.universidade.registro_universidade.DTO.ProfessorDTO;
 import com.universidade.registro_universidade.DTO.TurmaCreateDTO;
 import com.universidade.registro_universidade.DTO.TurmaDTO;
 import com.universidade.registro_universidade.model.Aluno;

@@ -1,12 +1,7 @@
 package com.universidade.registro_universidade.DTO;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
-
-import javax.management.RuntimeErrorException;
-
-import org.hibernate.internal.ExceptionConverterImpl;
 
 import com.universidade.registro_universidade.model.Turma;
 

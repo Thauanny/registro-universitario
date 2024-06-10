@@ -2,9 +2,6 @@ package com.universidade.registro_universidade.model;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
-import com.universidade.registro_universidade.DTO.AlunoDTO;
-import com.universidade.registro_universidade.DTO.ProfessorDTO;
 import com.universidade.registro_universidade.DTO.TurmaDTO;
 
 import jakarta.persistence.Column;
