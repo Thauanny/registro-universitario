@@ -14,8 +14,8 @@ import lombok.Setter;
 @Setter
 public class AlunoCreateDTO extends PessoaCreateDTO {
 
-  @NotNull
-  @NotEmpty
+  @NotNull(message = "O valor não pode ser vazio")
+  @NotEmpty(message = "O valor não pode ser em branco")
   private String curso;
 
   public Aluno toEntity() {

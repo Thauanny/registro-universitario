@@ -1,6 +1,7 @@
 package com.universidade.registro_universidade.DTO;
 
 import com.universidade.registro_universidade.model.Aluno;
+
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -14,21 +15,26 @@ import lombok.Setter;
 @Setter
 public class AlunoDTO extends PessoaDTO {
 
-  @NotNull
-  @NotEmpty
+  @NotNull(message = "O valor não pode ser vazio")
+  @NotEmpty(message = "O valor não pode ser em branco")
   private String curso;
 
   public Aluno toEntity() {
     Aluno aluno = new Aluno();
-    aluno.setId(this.getId());
-    aluno.setNome(this.getNome());
-    aluno.setEmail(this.getEmail());
-    aluno.setCpf(this.getCpf());
-    aluno.setAtivo(this.isAtivo());
-    aluno.setDataNascimento(this.getDataNascimento());
-    aluno.setCurso(this.getCurso());
-    aluno.setGenero(this.getGenero());
-    aluno.setMatricula(this.getMatricula());
-    return aluno;
+    try {
+      aluno.setId(this.getId());
+      aluno.setNome(this.getNome());
+      aluno.setEmail(this.getEmail());
+      aluno.setCpf(this.getCpf());
+      aluno.setAtivo(this.isAtivo());
+      aluno.setDataNascimento(this.getDataNascimento());
+      aluno.setCurso(this.getCurso());
+      aluno.setGenero(this.getGenero());
+      aluno.setMatricula(this.getMatricula());
+      return aluno;
+    } catch (Exception e) {
+      throw new RuntimeException("Erro ao converter DTO em Entity", e);
+    }
+   
   }
 }

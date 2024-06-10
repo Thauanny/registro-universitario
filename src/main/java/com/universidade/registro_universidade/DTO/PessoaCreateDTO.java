@@ -19,33 +19,32 @@ import org.hibernate.validator.constraints.br.CPF;
 @Setter
 public class PessoaCreateDTO {
 
-  @NotNull
-  @NotEmpty
+  @NotNull(message = "O valor não pode ser vazio")
+  @NotEmpty(message = "O valor não pode ser em branco")
   private String nome;
 
-  @NotNull
-  @CPF
-  @NotEmpty
-
+  @NotNull(message = "O valor não pode ser vazio")
+  @CPF(message = "CPF invalido")
+  @NotEmpty(message = "O valor não pode ser em branco")
   private String cpf;
 
-  @NotNull
-  @NotEmpty
+  @NotNull(message = "O valor não pode ser vazio")
+  @NotEmpty(message = "O valor não pode ser em branco")
   private String password;
 
-  @Email
-  @NotNull
-  @NotEmpty
+  @Email(message = "Email invalido")
+  @NotNull(message = "O valor não pode ser vazio")
+  @NotEmpty(message = "O valor não pode ser em branco")
   private String email;
 
-  @NotNull
-  @NotEmpty
+  @NotNull(message = "O valor não pode ser vazio")
+  @NotEmpty(message = "O valor não pode ser em branco")
   private String matricula;
 
   @Enumerated(EnumType.STRING)
   private GENERO genero;
 
-  @NotNull
-  @NotEmpty
+  @NotNull(message = "O valor não pode ser vazio")
+  @NotEmpty(message = "O valor não pode ser em branco")
   private String dataNascimento;
 }

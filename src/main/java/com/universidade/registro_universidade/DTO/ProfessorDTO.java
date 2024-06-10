@@ -15,28 +15,35 @@ import lombok.Setter;
 @Setter
 public class ProfessorDTO extends PessoaDTO {
 
-    @NotNull
-    @NotEmpty
-    private String departamento;
-    @NotNull
-    private float salario;
-    @NotNull
-    @NotEmpty
-    private String disciplinaAssociada;
+  @NotNull(message = "O valor não pode ser vazio")
+  @NotEmpty(message = "O valor não pode ser em branco")
+  private String departamento;
+
+  @NotNull(message = "O valor não pode ser vazio")
+  private float salario;
+
+  @NotNull(message = "O valor não pode ser vazio")
+  @NotEmpty(message = "O valor não pode ser em branco")
+  private String disciplinaAssociada;
 
   public Professor toEntity() {
     Professor professor = new Professor();
-    professor.setId(this.getId());
-    professor.setNome(this.getNome());
-    professor.setEmail(this.getEmail());
-    professor.setCpf(this.getCpf());
-    professor.setAtivo(this.isAtivo());
-    professor.setDataNascimento(this.getDataNascimento());
-    professor.setSalario(this.getSalario());
-    professor.setDepartamento(this.getDepartamento());
-    professor.setDisciplinaAssociada(this.getDisciplinaAssociada());
-    professor.setGenero(this.getGenero());
-    professor.setMatricula(this.getMatricula());
-    return professor;
+    try {
+      professor.setId(this.getId());
+      professor.setNome(this.getNome());
+      professor.setEmail(this.getEmail());
+      professor.setCpf(this.getCpf());
+      professor.setAtivo(this.isAtivo());
+      professor.setDataNascimento(this.getDataNascimento());
+      professor.setSalario(this.getSalario());
+      professor.setDepartamento(this.getDepartamento());
+      professor.setDisciplinaAssociada(this.getDisciplinaAssociada());
+      professor.setGenero(this.getGenero());
+      professor.setMatricula(this.getMatricula());
+      return professor;
+    } catch (Exception e) {
+      throw new RuntimeException("Erro ao converter DTO em Entity", e);
+    }
+
   }
 }

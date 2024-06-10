@@ -4,9 +4,6 @@ import com.universidade.registro_universidade.model.GENERO;
 
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -23,35 +20,35 @@ import org.hibernate.validator.constraints.br.CPF;
 @Setter
 public class PessoaDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull(message = "O valor não pode ser vazio")
+    @NotEmpty(message = "O valor não pode ser em branco")
     private int id;
 
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "O valor não pode ser vazio")
+    @NotEmpty(message = "O valor não pode ser em branco")
     private String nome;
 
-    @NotNull
-    @CPF
-    @NotEmpty
+    @NotNull(message = "O valor não pode ser vazio")
+    @NotEmpty(message = "O valor não pode ser em branco")
+    @CPF(message = "CPF invalido")
     private String cpf;
 
-    @Email
-    @NotNull
-    @NotEmpty
+    @Email(message = "Email invalido")
+    @NotNull(message = "O valor não pode ser vazio")
+    @NotEmpty(message = "O valor não pode ser em branco")
     private String email;
 
-    @NotNull
+    @NotNull(message = "O valor não pode ser vazio")
     private boolean ativo;
 
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "O valor não pode ser vazio")
+    @NotEmpty(message = "O valor não pode ser em branco")
     private String matricula;
 
     @Enumerated(EnumType.STRING)
     private GENERO genero;
 
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "O valor não pode ser vazio")
+    @NotEmpty(message = "O valor não pode ser em branco")
     private String dataNascimento;
 }

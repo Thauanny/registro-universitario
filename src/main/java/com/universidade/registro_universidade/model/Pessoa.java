@@ -1,7 +1,5 @@
 package com.universidade.registro_universidade.model;
 
-import org.hibernate.validator.constraints.br.CPF;
-
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,9 +11,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,38 +23,24 @@ public class Pessoa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private int id;
-    @NotNull
-    @NotEmpty
-    @Column(name = "nome")
+    @Column(name = "nome", nullable = false)
     private String nome;
-    @NotNull
-    @CPF
-    @NotEmpty
-    @Column(name = "cpf")
+    @Column(name = "cpf", nullable = false)
     private String cpf;
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
-    @Email
-    @NotNull
-    @NotEmpty
-    @Column(name = "email")
+    @Column(name = "email", nullable = false)
     private String email;
-    @NotNull
-    @NotEmpty
-    @Column(name = "matricula")
+    @Column(name = "matricula", nullable = false)
     private String matricula;
-    @NotNull
-    @Column(name = "ativo")
+    @Column(name = "ativo", nullable = false)
     private boolean ativo;
-    @NotNull
-    @Column(name = "genero")
+    @Column(name = "genero", nullable = false)
     @Enumerated(EnumType.STRING)
     private GENERO genero;
-    @NotNull
-    @NotEmpty
-    @Column(name = "dataNascimento")
+    @Column(name = "dataNascimento", nullable = false)
     private String dataNascimento;
 
 }
