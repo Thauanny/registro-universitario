@@ -111,4 +111,33 @@ public class TurmaService {
     _turma.setAtivo(false);
     return turmaRepository.save(_turma.toEntity()).toDTO();
   }
+
+  public TurmaDTO removerProfessor(Integer id, Integer idProfessor) {
+    try {
+      Turma turma = turma(id).toEntity();
+      turma.setProfessor(null);
+      return turmaRepository.save(turma).toDTO();
+    } catch (EntityNotFoundException e) {
+      throw new EntityNotFoundException(
+          "Professor com ID: " + id + " não encontrado na turma");
+    } catch (Exception e) {
+      throw e;
+    }
+  }
+
+  public TurmaDTO removerAluno(Integer id, Integer idAluno) {
+    try {
+      Turma turma = turma(id).toEntity();
+      List<Aluno> _alunos = new ArrayList<>();
+      _alunos = turma.getAlunos();
+      _alunos.removeIf(aluno -> aluno.getId() == idAluno);
+      turma.setAlunos(_alunos);
+      return turmaRepository.save(turma).toDTO();
+    } catch (EntityNotFoundException e) {
+      throw new EntityNotFoundException(
+          "Aluno com ID: " + id + " não encontrado na turma");
+    } catch (Exception e) {
+      throw e;
+    }
+  }
 }

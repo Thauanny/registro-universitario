@@ -46,7 +46,7 @@ public class TurmaController {
         } catch (EntityNotFoundException e) {
             Map<String, String> map = new HashMap<>();
             map.put("message", e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(map);
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
@@ -99,7 +99,7 @@ public class TurmaController {
         } catch (EntityNotFoundException e) {
             Map<String, String> map = new HashMap<>();
             map.put("message", e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(map);
         } catch (ConstraintViolationException ex) {
             Map<String, Object> errorMap = new HashMap<>();
             List<String> errorMessages = new ArrayList<>();
@@ -123,6 +123,10 @@ public class TurmaController {
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body("{\"message\": \"turma deletada com sucesso\"}");
+        } catch (EntityNotFoundException e) {
+            Map<String, String> map = new HashMap<>();
+            map.put("message", "Turma não encontrada");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(map);
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
@@ -138,6 +142,10 @@ public class TurmaController {
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(turmaService.registerProfessorOnTurma(id, idProfessor));
+        } catch (EntityNotFoundException e) {
+            Map<String, String> map = new HashMap<>();
+            map.put("message", "Turma ou Professor não encontrados");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(map);
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
@@ -152,6 +160,10 @@ public class TurmaController {
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(turmaService.registerAlunoOnTurma(id, idAluno));
+        } catch (EntityNotFoundException e) {
+            Map<String, String> map = new HashMap<>();
+            map.put("message", "Turma ou Aluno não encontrados");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(map);
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
@@ -166,6 +178,50 @@ public class TurmaController {
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body("{\"message\": \"turma deletada com sucesso\"}");
+        } catch (EntityNotFoundException e) {
+            Map<String, String> map = new HashMap<>();
+            map.put("message", "Turma não encontrada");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(map);
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("{\"message\": \"Algo deu errado\"}");
+        }
+    }
+
+    @DeleteMapping("/removerProfessor/{id}")
+    public ResponseEntity<?> removeProfessor(@PathVariable Integer id,
+            @RequestParam("id_professor") Integer idProfessor) {
+        try {
+
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(turmaService.removerProfessor(id, idProfessor));
+        } catch (EntityNotFoundException e) {
+            Map<String, String> map = new HashMap<>();
+            map.put("message", e.getMessage());
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(map);
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("{\"message\": \"Algo deu errado\"}");
+        }
+    }
+
+    @DeleteMapping("/removerAluno/{id}")
+    public ResponseEntity<?> removeAluno(@PathVariable Integer id, @RequestParam("id_aluno") Integer idAluno) {
+        try {
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(turmaService.removerAluno(id, idAluno));
+        } catch (EntityNotFoundException e) {
+            Map<String, String> map = new HashMap<>();
+            map.put("message", e.getMessage());
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(map);
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)

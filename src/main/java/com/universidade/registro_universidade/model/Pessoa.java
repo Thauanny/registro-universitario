@@ -1,6 +1,5 @@
 package com.universidade.registro_universidade.model;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -27,11 +26,11 @@ public class Pessoa {
     private int id;
     @Column(name = "nome", nullable = false)
     private String nome;
-    @Column(name = "cpf", nullable = false)
+    @Column(name = "cpf", nullable = false, unique = true)
     private String cpf;
     @Column(name = "password", nullable = false)
     private String password;
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
     @Column(name = "matricula", nullable = false)
     private String matricula;

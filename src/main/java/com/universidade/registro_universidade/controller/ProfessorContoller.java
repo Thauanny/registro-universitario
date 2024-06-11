@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,7 +38,7 @@ public class ProfessorContoller {
     } catch (EntityNotFoundException e) {
       Map<String, String> map = new HashMap<>();
       map.put("message", e.getMessage());
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(map);
     } catch (Exception e) {
       return ResponseEntity
           .status(HttpStatus.BAD_REQUEST)
@@ -80,12 +81,15 @@ public class ProfessorContoller {
       errorMap.put("message", errorMessages);
 
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMap);
-    }
-    catch (IllegalArgumentException ex) {
+    } catch (IllegalArgumentException ex) {
       Map<String, Object> errorMap = new HashMap<>();
-      errorMap.put("message",  ex.getMessage().replaceAll("raw", ""));
+      errorMap.put("message", ex.getMessage().replaceAll("raw", ""));
 
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMap);
+    } catch (DataIntegrityViolationException e) {
+      return ResponseEntity
+          .status(HttpStatus.BAD_REQUEST)
+          .body("{\"message\": \"Dados CPF ou Email já cadastrados\"}");
     } catch (Exception e) {
       return ResponseEntity
           .status(HttpStatus.BAD_REQUEST)
@@ -98,11 +102,11 @@ public class ProfessorContoller {
       @RequestBody ProfessorDTO professor,
       @PathVariable Integer id) {
     try {
-      return ResponseEntity.ok(professorService.update(professor,id));
+      return ResponseEntity.ok(professorService.update(professor, id));
     } catch (EntityNotFoundException e) {
       Map<String, String> map = new HashMap<>();
       map.put("message", e.getMessage());
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(map);
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(map);
     } catch (ConstraintViolationException ex) {
       Map<String, Object> errorMap = new HashMap<>();
       List<String> errorMessages = new ArrayList<>();
@@ -126,7 +130,13 @@ public class ProfessorContoller {
       return ResponseEntity
           .status(HttpStatus.OK)
           .body("{\"message\": \"Professor deletado com sucesso\"}");
-    } catch (Exception e) {
+    }catch (EntityNotFoundException e) {
+      Map<String, String> map = new HashMap<>();
+      map.put("message", "Professor não encontrado");
+      return ResponseEntity
+              .status(HttpStatus.NOT_FOUND)
+              .body(map);
+  } catch (Exception e) {
       return ResponseEntity
           .status(HttpStatus.BAD_REQUEST)
           .body("{\"message\": \"Algo deu errado\"}");
@@ -140,7 +150,13 @@ public class ProfessorContoller {
       return ResponseEntity
           .status(HttpStatus.OK)
           .body("{\"message\": \"Professor deletado com sucesso\"}");
-    } catch (Exception e) {
+    } catch (EntityNotFoundException e) {
+      Map<String, String> map = new HashMap<>();
+      map.put("message", "Professor não encontrado");
+      return ResponseEntity
+              .status(HttpStatus.NOT_FOUND)
+              .body(map);
+  }catch (Exception e) {
       return ResponseEntity
           .status(HttpStatus.BAD_REQUEST)
           .body("{\"message\": \"Algo deu errado\"}");
