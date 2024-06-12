@@ -1,6 +1,10 @@
 package com.universidade.registro_universidade.DTO;
 
+import java.util.List;
+
 import com.universidade.registro_universidade.model.Aluno;
+import com.universidade.registro_universidade.model.Turma;
+
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -17,6 +21,8 @@ public class AlunoCreateDTO extends PessoaCreateDTO {
   @NotNull(message = "O valor não pode ser vazio")
   @NotEmpty(message = "O valor não pode ser em branco")
   private String curso;
+
+  private List<Turma> turmas;
 
   public Aluno toEntity() {
     Aluno aluno = new Aluno();

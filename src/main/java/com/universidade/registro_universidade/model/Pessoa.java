@@ -1,11 +1,16 @@
 package com.universidade.registro_universidade.model;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,24 +27,45 @@ public class Pessoa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private int id;
-    @Column(name = "nome", nullable = false)
+
+    @NotNull(message = "O valor não pode ser vazio")
+    @NotEmpty(message = "O valor não pode ser em branco")
+    @Column(name = "nome")
     private String nome;
-    @Column(name = "cpf", nullable = false, unique = true)
+
+    @NotNull(message = "O valor não pode ser vazio")
+    @NotEmpty(message = "O valor não pode ser em branco")
+    @CPF()
+    @Column(name = "cpf", unique = true)
     private String cpf;
-    @Column(name = "password", nullable = false)
+
+    @Column(name = "password")
     private String password;
-    @Column(name = "email", nullable = false, unique = true)
+    
+    @Email(message = "Email invalido")
+    @NotNull(message = "O valor não pode ser vazio")
+    @NotEmpty(message = "O valor não pode ser em branco")
+    @Column(name = "email", unique = true)
     private String email;
-    @Column(name = "matricula", nullable = false)
+
+    @NotNull(message = "O valor não pode ser vazio")
+    @NotEmpty(message = "O valor não pode ser em branco")
+    @Column(name = "matricula")
     private String matricula;
-    @Column(name = "ativo", nullable = false)
+
+    @Column(name = "ativo")
     private boolean ativo;
-    @Column(name = "genero", nullable = false)
+
+    @NotNull(message = "O valor não pode ser vazio")
+    @Column(name = "genero")
     @Enumerated(EnumType.STRING)
     private GENERO genero;
-    @Column(name = "dataNascimento", nullable = false)
+
+    @NotNull(message = "O valor não pode ser vazio")
+    @NotEmpty(message = "O valor não pode ser em branco")
+    @Column(name = "dataNascimento")
     private String dataNascimento;
 
 }

@@ -5,6 +5,8 @@ import com.universidade.registro_universidade.DTO.ProfessorDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,13 +20,18 @@ import lombok.Setter;
 @Table(name = "professor")
 public class Professor extends Pessoa {
 
-    @Column(name = "departamento", nullable = false)
+    @NotNull(message = "O valor não pode ser vazio")
+    @NotEmpty(message = "O valor não pode ser em branco")
+    @Column(name = "departamento")
     private String departamento;
 
-    @Column(name = "salario", nullable = false)
+    @NotNull(message = "O valor não pode ser vazio")
+    @Column(name = "salario")
     private float salario;
 
-    @Column(name = "disciplinaAssociada", nullable = false)
+    @NotNull(message = "O valor não pode ser vazio")
+    @NotEmpty(message = "O valor não pode ser em branco")
+    @Column(name = "disciplinaAssociada")
     private String disciplinaAssociada;
 
     public ProfessorDTO toDTO() {

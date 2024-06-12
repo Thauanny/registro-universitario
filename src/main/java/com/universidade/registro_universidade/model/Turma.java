@@ -14,6 +14,8 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,13 +31,21 @@ public class Turma {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private int id;
-    @Column(name = "nome", nullable = false)
+
+    @NotNull(message = "O valor não pode ser vazio")
+    @NotEmpty(message = "O valor não pode ser em branco")
+    @Column(name = "nome")
     private String nome;
-    @Column(name = "codigo", nullable = false)
+
+    @NotNull(message = "O valor não pode ser vazio")
+    @NotEmpty(message = "O valor não pode ser em branco")
+    @Column(name = "codigo")
     private String codigo;
-    @Column(name = "ativo", nullable = false)
+
+    @NotNull(message = "O valor não pode ser vazio")
+    @Column(name = "ativo")
     private boolean ativo;
 
     @ManyToMany
