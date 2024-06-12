@@ -7,6 +7,7 @@ import com.universidade.registro_universidade.model.Professor;
 import com.universidade.registro_universidade.model.Turma;
 import com.universidade.registro_universidade.repository.TurmaRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,25 +74,27 @@ public class TurmaService {
     turmaRepository.deleteById(id);
   }
 
+  @Transactional
+
   public TurmaDTO registerProfessorOnTurma(Integer id, Integer idProfessor) {
     try {
       Turma turma = turma(id).toEntity();
       Professor professor = professorService.professor(idProfessor).toEntity();
-     // turma.setProfessor(professor);
-      return turmaRepository.save(turma).toDTO();
+      turma.setProfessor(professor);
+      return turmaRepository.saveAndFlush(turma).toDTO();
     } catch (Exception e) {
       throw e;
     }
 
   }
-
+  @Transactional
   public TurmaDTO registerAlunoOnTurma(Integer id, Integer idAluno) {
     try {
       Turma turma = turma(id).toEntity();
       Aluno aluno = alunoService.aluno(idAluno).toEntity();
       List<Aluno> alunos = new ArrayList<>();
       if (turma.getAlunos() != null && !(turma.getAlunos().isEmpty())) {
-        turma.getAlunos().add(aluno);
+        turma.getAlunos().addAll(alunos);
         turma.setAlunos(turma.getAlunos());
       } else {
         turma.setAlunos(alunos);
@@ -99,7 +102,7 @@ public class TurmaService {
         turma.setAlunos(turma.getAlunos());
       }
 
-      return turmaRepository.save(turma).toDTO();
+      return turmaRepository.saveAndFlush(turma).toDTO();
     } catch (Exception e) {
       throw e;
     }
@@ -115,7 +118,7 @@ public class TurmaService {
   public TurmaDTO removerProfessor(Integer id, Integer idProfessor) {
     try {
       Turma turma = turma(id).toEntity();
-    //  turma.setProfessor(null);
+      turma.setProfessor(null);
       return turmaRepository.save(turma).toDTO();
     } catch (EntityNotFoundException e) {
       throw new EntityNotFoundException(

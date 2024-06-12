@@ -1,5 +1,6 @@
 package com.universidade.registro_universidade.DTO;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,11 +19,11 @@ import lombok.Setter;
 @Setter
 public class AlunoDTO extends PessoaDTO {
 
-  @NotNull(message = "O valor não pode ser vazio")
-  @NotEmpty(message = "O valor não pode ser em branco")
+ // @NotNull(message = "O valor não pode ser vazio")
+ // @NotEmpty(message = "O valor não pode ser em branco")
   private String curso;
 
-  private List<TurmaResumedDTO> turmas;
+  private List<TurmaResumedDTO> turmas = new ArrayList<>();
 
   public Aluno toEntity() {
     Aluno aluno = new Aluno();

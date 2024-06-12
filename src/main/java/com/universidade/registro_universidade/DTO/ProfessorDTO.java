@@ -1,5 +1,9 @@
 package com.universidade.registro_universidade.DTO;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.universidade.registro_universidade.model.Professor;
 
 import jakarta.validation.constraints.NotEmpty;
@@ -22,9 +26,8 @@ public class ProfessorDTO extends PessoaDTO {
   @NotNull(message = "O valor não pode ser vazio")
   private float salario;
 
-  @NotNull(message = "O valor não pode ser vazio")
-  @NotEmpty(message = "O valor não pode ser em branco")
-  private String disciplinaAssociada;
+  @JsonIgnoreProperties({ "professor" })
+  private List<TurmaResumedDTO> turmas = new ArrayList<>();;
 
   public Professor toEntity() {
     Professor professor = new Professor();
@@ -37,7 +40,6 @@ public class ProfessorDTO extends PessoaDTO {
       professor.setDataNascimento(this.getDataNascimento());
       professor.setSalario(this.getSalario());
       professor.setDepartamento(this.getDepartamento());
-      professor.setDisciplinaAssociada(this.getDisciplinaAssociada());
       professor.setGenero(this.getGenero());
       professor.setMatricula(this.getMatricula());
       return professor;
@@ -46,4 +48,5 @@ public class ProfessorDTO extends PessoaDTO {
     }
 
   }
+
 }

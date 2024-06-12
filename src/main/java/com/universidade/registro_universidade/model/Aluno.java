@@ -1,5 +1,6 @@
 package com.universidade.registro_universidade.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,14 +29,14 @@ import lombok.Setter;
 @Table(name = "aluno")
 public class Aluno extends Pessoa {
 
-    @NotNull(message = "O valor não pode ser vazio")
-    @NotEmpty(message = "O valor não pode ser em branco")
+   // @NotNull(message = "O valor não pode ser vazio")
+   // @NotEmpty(message = "O valor não pode ser em branco")
     @Column(name = "curso")
     private String curso;
 
-    @ManyToMany(mappedBy = "alunos", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "alunos", fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"turmas", "alunos" })
-    private List<Turma> turmas;
+    private List<Turma> turmas = new ArrayList<>();;
 
     public AlunoDTO toDTO() {
         AlunoDTO aluno = new AlunoDTO();

@@ -35,8 +35,8 @@ public class Pessoa {
     @Column(name = "nome")
     private String nome;
 
-    @NotNull(message = "O valor não pode ser vazio")
-    @NotEmpty(message = "O valor não pode ser em branco")
+    //@NotNull(message = "O valor não pode ser vazio")
+    //@NotEmpty(message = "O valor não pode ser em branco")
     @CPF()
     @Column(name = "cpf", unique = true)
     private String cpf;

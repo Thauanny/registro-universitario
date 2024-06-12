@@ -1,6 +1,10 @@
 package com.universidade.registro_universidade.DTO;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.universidade.registro_universidade.model.Professor;
+import com.universidade.registro_universidade.model.Turma;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -22,9 +26,7 @@ public class ProfessorCreateDTO extends PessoaCreateDTO {
   @NotNull(message = "O valor não pode ser vazio")
   private float salario;
 
-  @NotNull(message = "O valor não pode ser vazio")
-  @NotEmpty(message = "O valor não pode ser em branco")
-  private String disciplinaAssociada;
+  private List<Turma> turmas = new ArrayList<>();
 
   public Professor toEntity() {
     Professor professor = new Professor();
@@ -34,7 +36,7 @@ public class ProfessorCreateDTO extends PessoaCreateDTO {
       professor.setPassword(this.getPassword());
       professor.setCpf(this.getCpf());
       professor.setDataNascimento(this.getDataNascimento());
-      professor.setDisciplinaAssociada(this.getDisciplinaAssociada());
+      professor.setTurmas(this.getTurmas());
       professor.setSalario(this.getSalario());
       professor.setDepartamento(this.getDepartamento());
       professor.setGenero(this.getGenero());

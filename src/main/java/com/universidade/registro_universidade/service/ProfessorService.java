@@ -75,8 +75,8 @@ public class ProfessorService {
     if(professor.getDepartamento() != null && !(professor.getDepartamento().isEmpty())){
       responseProfessor.setDepartamento(professor.getDepartamento());
     }
-    if(professor.getDisciplinaAssociada() != null && !(professor.getDisciplinaAssociada().isEmpty())){
-      responseProfessor.setDisciplinaAssociada(professor.getDisciplinaAssociada());
+    if(professor.getTurmas() != null && !(professor.getTurmas().isEmpty())){
+      responseProfessor.setTurmas(professor.getTurmas());
     } 
     if(professor.getSalario() != 0){
       responseProfessor.setSalario(professor.getSalario());

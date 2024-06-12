@@ -19,7 +19,7 @@ public class TurmaResumedDTO {
     @NotNull(message = "O valor não pode ser vazio")
     private int id;
 
-    private ProfessorDTO professor;
+    private PessoaResumedDTO professor;
 
     @NotNull(message = "O valor não pode ser vazio")
     @NotEmpty(message = "O valor não pode ser em branco")
@@ -36,9 +36,9 @@ public class TurmaResumedDTO {
             turma.setNome(this.getNome());
             turma.setCodigo(this.getCodigo());
             
-            // if (this.getProfessor() != null) {
-            //     turma.setProfessor(this.getProfessor().toEntity());
-            // }
+            if (this.getProfessor() != null) {
+                turma.setProfessor(this.getProfessor().toProfessorEntity());
+            }
             return turma;
 
         } catch (Exception e) {

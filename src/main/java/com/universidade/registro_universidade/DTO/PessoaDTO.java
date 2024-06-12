@@ -28,8 +28,8 @@ public class PessoaDTO {
     @NotEmpty(message = "O valor não pode ser em branco")
     private String nome;
 
-    @NotNull(message = "O valor não pode ser vazio")
-    @NotEmpty(message = "O valor não pode ser em branco")
+    //@NotNull(message = "O valor não pode ser vazio")
+    //@NotEmpty(message = "O valor não pode ser em branco")
     @CPF(message = "CPF invalido")
     private String cpf;
 

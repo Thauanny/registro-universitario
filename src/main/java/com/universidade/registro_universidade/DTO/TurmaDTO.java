@@ -1,5 +1,6 @@
 package com.universidade.registro_universidade.DTO;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,9 +22,9 @@ public class TurmaDTO {
     @NotNull(message = "O valor não pode ser vazio")
     private int id;
 
-    private ProfessorDTO professor;
+    private PessoaResumedDTO professor;
 
-    private List<PessoaResumedDTO> alunos;
+    private List<PessoaResumedDTO> alunos = new ArrayList<>();;
 
     @NotNull(message = "O valor não pode ser vazio")
     @NotEmpty(message = "O valor não pode ser em branco")
@@ -43,13 +44,15 @@ public class TurmaDTO {
             turma.setNome(this.getNome());
             turma.setAtivo(this.isAtivo());
             turma.setCodigo(this.getCodigo());
+
             if (this.getAlunos() != null && !this.getAlunos().isEmpty()) {
-                turma.setAlunos(this.getAlunos().stream().map(PessoaResumedDTO::toEntity).collect(Collectors.toList()));
+                turma.setAlunos(
+                        this.getAlunos().stream().map(PessoaResumedDTO::toAlunoEntity).collect(Collectors.toList()));
 
             }
-            // if (this.getProfessor() != null) {
-            //     turma.setProfessor(this.getProfessor().toEntity());
-            // }
+            if (this.getProfessor() != null) {
+                turma.setProfessor(this.getProfessor().toProfessorEntity());
+            }
             return turma;
 
         } catch (Exception e) {
