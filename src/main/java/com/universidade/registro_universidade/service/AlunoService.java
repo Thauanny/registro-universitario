@@ -2,9 +2,7 @@ package com.universidade.registro_universidade.service;
 
 import com.universidade.registro_universidade.DTO.AlunoCreateDTO;
 import com.universidade.registro_universidade.DTO.AlunoDTO;
-import com.universidade.registro_universidade.DTO.ProfessorDTO;
 import com.universidade.registro_universidade.model.Aluno;
-import com.universidade.registro_universidade.model.Professor;
 import com.universidade.registro_universidade.repository.AlunoRepository;
 import jakarta.persistence.EntityNotFoundException;
 

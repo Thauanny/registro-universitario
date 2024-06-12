@@ -1,7 +1,5 @@
 package com.universidade.registro_universidade.DTO;
 
-import java.util.List;
-import java.util.stream.Collectors;
 
 import com.universidade.registro_universidade.model.Turma;
 

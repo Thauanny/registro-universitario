@@ -6,13 +6,11 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.universidade.registro_universidade.DTO.AlunoDTO;
 import com.universidade.registro_universidade.DTO.PessoaResumedDTO;
-import com.universidade.registro_universidade.DTO.TurmaResumedDTO;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
