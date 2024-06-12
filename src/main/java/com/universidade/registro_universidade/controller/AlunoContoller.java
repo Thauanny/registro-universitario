@@ -70,7 +70,7 @@ public class AlunoContoller {
   @PostMapping("/register")
   public ResponseEntity<?> register(@RequestBody AlunoCreateDTO aluno) {
     try {
-      return ResponseEntity.ok(alunoService.save(aluno));
+      return ResponseEntity.ok(alunoService.register(aluno));
     } catch (ConstraintViolationException ex) {
       Map<String, Object> errorMap = new HashMap<>();
       List<String> errorMessages = new ArrayList<>();

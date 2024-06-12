@@ -50,11 +50,15 @@ public class ProfessorService {
     return alunoDTOs;
   }
 
-  public ProfessorDTO save(ProfessorCreateDTO aluno) {
-    aluno.setPassword(passwordEncoder.encode(aluno.getPassword()));
-    Professor alunoEntity = aluno.toEntity();
-    alunoEntity.setAtivo(true);
-      return professorRepository.save(alunoEntity).toDTO();
+  public ProfessorDTO register(ProfessorCreateDTO professor) {
+    professor.setPassword(passwordEncoder.encode(professor.getPassword()));
+    Professor professorEntity = professor.toEntity();
+    professorEntity.setAtivo(true);
+      return professorRepository.save(professorEntity).toDTO();
+  }
+
+  public ProfessorDTO save(Professor professor) {
+      return professorRepository.save(professor).toDTO();
   }
 
   public ProfessorDTO update(ProfessorDTO professor, Integer id) {
@@ -94,8 +98,8 @@ public class ProfessorService {
   }
 
   public ProfessorDTO deleteLogic(Integer id) {
-    ProfessorDTO _aluno = professor(id);
-    _aluno.setAtivo(false);
-    return professorRepository.save(_aluno.toEntity()).toDTO();
+    ProfessorDTO _professor = professor(id);
+    _professor.setAtivo(false);
+    return professorRepository.save(_professor.toEntity()).toDTO();
   }
 }

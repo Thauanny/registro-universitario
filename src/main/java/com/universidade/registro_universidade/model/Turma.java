@@ -2,17 +2,21 @@ package com.universidade.registro_universidade.model;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import com.universidade.registro_universidade.DTO.TurmaDTO;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.universidade.registro_universidade.DTO.TurmaDTO;
+import com.universidade.registro_universidade.DTO.TurmaResumedDTO;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -48,13 +52,15 @@ public class Turma {
     @Column(name = "ativo")
     private boolean ativo;
 
-    @ManyToMany
-    @JoinTable(name = "aluno_turma", joinColumns = @JoinColumn(name = "turma_id"), inverseJoinColumns = @JoinColumn(name = "aluno_id"))
+    @ManyToMany( cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"turmas", "alunos" })
+    
+    @JoinTable(name = "turma_aluno", joinColumns = @JoinColumn(name = "turma_id"), inverseJoinColumns = @JoinColumn(name = "aluno_id"))
     private List<Aluno> alunos;
 
-    @ManyToOne
-    @JoinColumn(name = "id_professor")
-    private Professor professor;
+    // @OneToOne
+    // @JoinColumn(name = "id_professor")
+    // private Professor professor;
 
     public TurmaDTO toDTO() {
         TurmaDTO turma = new TurmaDTO();
@@ -66,11 +72,28 @@ public class Turma {
             turma.setNome(this.getNome());
            
             if (this.getAlunos() != null && !this.getAlunos().isEmpty()) {
-                turma.setAlunos(this.getAlunos().stream().map(Aluno::toDTO).collect(Collectors.toList()));
+                turma.setAlunos(this.getAlunos().stream().map(Aluno::toResumedPessoaDTO).collect(Collectors.toList()));
             }
-            if (this.getProfessor() != null) {
-                turma.setProfessor(this.getProfessor().toDTO());
-            }
+            // if (this.getProfessor() != null) {
+            //     turma.setProfessor(this.getProfessor().toDTO());
+            // }
+            return turma;
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao converter Entity em DTO", e);
+        }
+
+    }
+
+    public TurmaResumedDTO toResumedDTO() {
+        TurmaResumedDTO turma = new TurmaResumedDTO();
+
+        try {
+            turma.setId(this.getId());
+            turma.setCodigo(this.getCodigo());
+            turma.setNome(this.getNome());
+            // if (this.getProfessor() != null) {
+            //     turma.setProfessor(this.getProfessor().toDTO());
+            // }
             return turma;
         } catch (Exception e) {
             throw new RuntimeException("Erro ao converter Entity em DTO", e);

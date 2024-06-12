@@ -16,14 +16,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class TurmaDTO {
+public class TurmaResumedDTO {
 
     @NotNull(message = "O valor não pode ser vazio")
     private int id;
 
     private ProfessorDTO professor;
-
-    private List<PessoaResumedDTO> alunos;
 
     @NotNull(message = "O valor não pode ser vazio")
     @NotEmpty(message = "O valor não pode ser em branco")
@@ -33,20 +31,13 @@ public class TurmaDTO {
     @NotEmpty(message = "O valor não pode ser em branco")
     private String nome;
 
-    @NotNull(message = "O valor não pode ser vazio")
-    private boolean ativo;
-
     public Turma toEntity() {
         try {
             Turma turma = new Turma();
             turma.setId(this.getId());
             turma.setNome(this.getNome());
-            turma.setAtivo(this.isAtivo());
             turma.setCodigo(this.getCodigo());
-            if (this.getAlunos() != null && !this.getAlunos().isEmpty()) {
-                turma.setAlunos(this.getAlunos().stream().map(PessoaResumedDTO::toEntity).collect(Collectors.toList()));
-
-            }
+            
             // if (this.getProfessor() != null) {
             //     turma.setProfessor(this.getProfessor().toEntity());
             // }

@@ -71,7 +71,7 @@ public class ProfessorContoller {
   @PostMapping("/register")
   public ResponseEntity<?> register(@RequestBody ProfessorCreateDTO professor) {
     try {
-      return ResponseEntity.ok(professorService.save(professor));
+      return ResponseEntity.ok(professorService.register(professor));
     } catch (ConstraintViolationException ex) {
       Map<String, Object> errorMap = new HashMap<>();
       List<String> errorMessages = new ArrayList<>();

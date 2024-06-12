@@ -2,7 +2,9 @@ package com.universidade.registro_universidade.service;
 
 import com.universidade.registro_universidade.DTO.AlunoCreateDTO;
 import com.universidade.registro_universidade.DTO.AlunoDTO;
+import com.universidade.registro_universidade.DTO.ProfessorDTO;
 import com.universidade.registro_universidade.model.Aluno;
+import com.universidade.registro_universidade.model.Professor;
 import com.universidade.registro_universidade.repository.AlunoRepository;
 import jakarta.persistence.EntityNotFoundException;
 
@@ -49,11 +51,15 @@ public class AlunoService {
     return alunoDTOs;
   }
 
-  public AlunoDTO save(AlunoCreateDTO aluno) {
+  public AlunoDTO register(AlunoCreateDTO aluno) {
     aluno.setPassword(passwordEncoder.encode(aluno.getPassword()));
     Aluno alunoEntity = aluno.toEntity();
     alunoEntity.setAtivo(true);
     return alunoRepository.save(alunoEntity).toDTO();
+  }
+
+   public AlunoDTO save(Aluno aluno) {
+      return alunoRepository.save(aluno).toDTO();
   }
 
   public AlunoDTO update(AlunoDTO aluno, Integer id) {

@@ -77,7 +77,7 @@ public class TurmaService {
     try {
       Turma turma = turma(id).toEntity();
       Professor professor = professorService.professor(idProfessor).toEntity();
-      turma.setProfessor(professor);
+     // turma.setProfessor(professor);
       return turmaRepository.save(turma).toDTO();
     } catch (Exception e) {
       throw e;
@@ -115,7 +115,7 @@ public class TurmaService {
   public TurmaDTO removerProfessor(Integer id, Integer idProfessor) {
     try {
       Turma turma = turma(id).toEntity();
-      turma.setProfessor(null);
+    //  turma.setProfessor(null);
       return turmaRepository.save(turma).toDTO();
     } catch (EntityNotFoundException e) {
       throw new EntityNotFoundException(
