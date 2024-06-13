@@ -29,8 +29,8 @@ import lombok.Setter;
 @Table(name = "aluno")
 public class Aluno extends Pessoa {
 
-   // @NotNull(message = "O valor não pode ser vazio")
-   // @NotEmpty(message = "O valor não pode ser em branco")
+   @NotNull(message = "O valor não pode ser vazio")
+   @NotEmpty(message = "O valor não pode ser em branco")
     @Column(name = "curso")
     private String curso;
 

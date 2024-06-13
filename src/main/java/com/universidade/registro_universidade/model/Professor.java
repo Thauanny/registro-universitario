@@ -38,7 +38,7 @@ public class Professor extends Pessoa {
     @Column(name = "salario")
     private float salario;
 
-    @OneToMany(mappedBy = "professor",fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "professor",fetch = FetchType.LAZY)
     @JsonIgnoreProperties({ "professor" })
     private List<Turma> turmas = new ArrayList<>();
 

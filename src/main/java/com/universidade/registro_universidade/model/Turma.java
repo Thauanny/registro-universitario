@@ -56,7 +56,7 @@ public class Turma {
 
     @ManyToMany( fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"turmas", "alunos" })
-    
+
     @JoinTable(name = "turma_aluno", joinColumns = @JoinColumn(name = "turma_id"), inverseJoinColumns = @JoinColumn(name = "aluno_id"))
     private List<Aluno> alunos =new ArrayList<>();;
 
