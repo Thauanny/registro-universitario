@@ -1,12 +1,9 @@
 package com.universidade.registro_universidade.DTO;
 
+import com.universidade.registro_universidade.model.Aluno;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import com.universidade.registro_universidade.model.Aluno;
-
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,14 +34,17 @@ public class AlunoDTO extends PessoaDTO {
       aluno.setType(this.getType());
       aluno.setMatricula(this.getMatricula());
       if (this.getTurmas() != null && !this.getTurmas().isEmpty()) {
-        aluno.setTurmas(this.getTurmas().stream().map(TurmaResumedDTO::toEntity).collect(Collectors.toList()));
-
-    }
+        aluno.setTurmas(
+          this.getTurmas()
+            .stream()
+            .map(TurmaResumedDTO::toEntity)
+            .collect(Collectors.toList())
+        );
+      }
       return aluno;
     } catch (Exception e) {
       throw new RuntimeException("Erro ao converter DTO em Entity", e);
     }
-   
   }
 
   public PessoaResumedDTO toResumedPessoaDTO() {
@@ -62,6 +62,5 @@ public class AlunoDTO extends PessoaDTO {
     } catch (Exception e) {
       throw new RuntimeException("Erro ao converter DTO em Entity", e);
     }
-   
   }
 }

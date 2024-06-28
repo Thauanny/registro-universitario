@@ -1,16 +1,16 @@
 package com.universidade.registro_universidade.model;
 
 public enum ROLE {
-    ADMIN("admin"),
-    USER("user");
+  ADMIN("admin"),
+  USER("user");
 
-    private String role;
+  private String role;
 
-    ROLE(String role) {
-        this.role = role;
-    }
+  ROLE(String role) {
+    this.role = role;
+  }
 
-    public String getRole(){
-        return role;
-    }
+  public String getRole() {
+    return role;
+  }
 }

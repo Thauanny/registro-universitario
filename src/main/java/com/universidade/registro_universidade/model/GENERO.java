@@ -1,8 +1,7 @@
 package com.universidade.registro_universidade.model;
 
-public enum GENERO{
-    feminino,
-    masculino,
-    neutro,
-    
+public enum GENERO {
+  feminino,
+  masculino,
+  neutro,
 }

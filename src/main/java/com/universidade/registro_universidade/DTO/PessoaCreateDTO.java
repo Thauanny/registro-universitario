@@ -3,7 +3,6 @@ package com.universidade.registro_universidade.DTO;
 import com.universidade.registro_universidade.model.GENERO;
 import com.universidade.registro_universidade.model.PESSOATYPE;
 import com.universidade.registro_universidade.model.ROLE;
-
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Email;
@@ -13,7 +12,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import org.hibernate.validator.constraints.br.CPF;
 
 @AllArgsConstructor

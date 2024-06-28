@@ -1,9 +1,7 @@
 package com.universidade.registro_universidade.controller;
 
-import com.universidade.registro_universidade.DTO.ProfessorCreateDTO;
 import com.universidade.registro_universidade.DTO.ProfessorDTO;
 import com.universidade.registro_universidade.service.ProfessorService;
-
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
@@ -12,13 +10,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,8 +37,8 @@ public class ProfessorContoller {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(map);
     } catch (Exception e) {
       return ResponseEntity
-          .status(HttpStatus.BAD_REQUEST)
-          .body("{\"message\": \"Algo deu errado\"}");
+        .status(HttpStatus.BAD_REQUEST)
+        .body("{\"message\": \"Algo deu errado\"}");
     }
   }
 
@@ -52,8 +48,8 @@ public class ProfessorContoller {
       return ResponseEntity.ok(professorService.professorAtivosNaoAtivos());
     } catch (Exception e) {
       return ResponseEntity
-          .status(HttpStatus.BAD_REQUEST)
-          .body("{\"message\": \"Algo deu errado\"}");
+        .status(HttpStatus.BAD_REQUEST)
+        .body("{\"message\": \"Algo deu errado\"}");
     }
   }
 
@@ -63,20 +59,16 @@ public class ProfessorContoller {
       return ResponseEntity.ok(professorService.professores());
     } catch (Exception e) {
       return ResponseEntity
-          .status(HttpStatus.BAD_REQUEST)
-          .body("{\"message\": \"Algo deu errado\"}");
+        .status(HttpStatus.BAD_REQUEST)
+        .body("{\"message\": \"Algo deu errado\"}");
     }
-  }
-
-  @PostMapping("/register")
-  public ResponseEntity<?> register(@RequestBody ProfessorCreateDTO professor) {
-    return ResponseEntity.badRequest().build();
   }
 
   @PutMapping("/{id}")
   public ResponseEntity<?> update(
-      @RequestBody ProfessorDTO professor,
-      @PathVariable Integer id) {
+    @RequestBody ProfessorDTO professor,
+    @PathVariable Integer id
+  ) {
     try {
       return ResponseEntity.ok(professorService.update(professor, id));
     } catch (EntityNotFoundException e) {
@@ -94,8 +86,8 @@ public class ProfessorContoller {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMap);
     } catch (Exception e) {
       return ResponseEntity
-          .status(HttpStatus.BAD_REQUEST)
-          .body("{\"message\": \"Algo deu errado\"}");
+        .status(HttpStatus.BAD_REQUEST)
+        .body("{\"message\": \"Algo deu errado\"}");
     }
   }
 
@@ -104,18 +96,16 @@ public class ProfessorContoller {
     try {
       professorService.delete(id);
       return ResponseEntity
-          .status(HttpStatus.OK)
-          .body("{\"message\": \"Professor deletado com sucesso\"}");
-    }catch (EntityNotFoundException e) {
+        .status(HttpStatus.OK)
+        .body("{\"message\": \"Professor deletado com sucesso\"}");
+    } catch (EntityNotFoundException e) {
       Map<String, String> map = new HashMap<>();
       map.put("message", "Professor não encontrado");
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(map);
+    } catch (Exception e) {
       return ResponseEntity
-              .status(HttpStatus.NOT_FOUND)
-              .body(map);
-  } catch (Exception e) {
-      return ResponseEntity
-          .status(HttpStatus.BAD_REQUEST)
-          .body("{\"message\": \"Algo deu errado\"}");
+        .status(HttpStatus.BAD_REQUEST)
+        .body("{\"message\": \"Algo deu errado\"}");
     }
   }
 
@@ -124,18 +114,16 @@ public class ProfessorContoller {
     try {
       professorService.deleteLogic(id);
       return ResponseEntity
-          .status(HttpStatus.OK)
-          .body("{\"message\": \"Professor deletado com sucesso\"}");
+        .status(HttpStatus.OK)
+        .body("{\"message\": \"Professor deletado com sucesso\"}");
     } catch (EntityNotFoundException e) {
       Map<String, String> map = new HashMap<>();
       map.put("message", "Professor não encontrado");
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(map);
+    } catch (Exception e) {
       return ResponseEntity
-              .status(HttpStatus.NOT_FOUND)
-              .body(map);
-  }catch (Exception e) {
-      return ResponseEntity
-          .status(HttpStatus.BAD_REQUEST)
-          .body("{\"message\": \"Algo deu errado\"}");
+        .status(HttpStatus.BAD_REQUEST)
+        .body("{\"message\": \"Algo deu errado\"}");
     }
   }
 }

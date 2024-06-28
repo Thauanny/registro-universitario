@@ -1,7 +1,6 @@
 package com.universidade.registro_universidade.DTO;
 
 import com.universidade.registro_universidade.model.Turma;
-
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -40,6 +39,5 @@ public class TurmaCreateDTO {
     } catch (Exception e) {
       throw new RuntimeException("Erro ao converter DTO em Entity", e);
     }
-
   }
 }

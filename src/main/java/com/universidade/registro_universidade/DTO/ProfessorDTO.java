@@ -1,13 +1,9 @@
 package com.universidade.registro_universidade.DTO;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.universidade.registro_universidade.model.Professor;
-
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,13 +15,12 @@ import lombok.Setter;
 @Setter
 public class ProfessorDTO extends PessoaDTO {
 
-
   private String departamento;
 
   private float salario;
 
   @JsonIgnoreProperties({ "professor" })
-  private List<TurmaResumedDTO> turmas = new ArrayList<>();;
+  private List<TurmaResumedDTO> turmas = new ArrayList<>();
 
   public Professor toEntity() {
     Professor professor = new Professor();
@@ -46,7 +41,5 @@ public class ProfessorDTO extends PessoaDTO {
     } catch (Exception e) {
       throw new RuntimeException("Erro ao converter DTO em Entity", e);
     }
-
   }
-
 }

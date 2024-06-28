@@ -2,8 +2,6 @@ package com.universidade.registro_universidade.DTO;
 
 import com.universidade.registro_universidade.model.Professor;
 import com.universidade.registro_universidade.model.Turma;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;

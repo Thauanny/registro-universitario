@@ -31,21 +31,15 @@ public class SecurityConfiguration {
       )
       .authorizeHttpRequests(authorize ->
         authorize
-          // .requestMatchers(HttpMethod.PUT, "/professor/deleteLogic")
-          // .hasRole("ADMIN")
           .requestMatchers(HttpMethod.PUT, "/professor/**")
           .hasRole("ADMIN")
           .requestMatchers(HttpMethod.DELETE, "/professor/**")
-          .hasRole("ADMIN")
-          .requestMatchers(HttpMethod.PUT, "/aluno/deleteLogic")
           .hasRole("ADMIN")
           .requestMatchers(HttpMethod.PUT, "/aluno/**")
           .hasRole("ADMIN")
           .requestMatchers(HttpMethod.DELETE, "/aluno/**")
           .hasRole("ADMIN")
           .requestMatchers(HttpMethod.POST, "/turma/**")
-          .hasRole("ADMIN")
-          .requestMatchers(HttpMethod.PUT, "/turma/**")
           .hasRole("ADMIN")
           .requestMatchers(HttpMethod.PUT, "/turma/**")
           .hasRole("ADMIN")
@@ -58,7 +52,10 @@ public class SecurityConfiguration {
           .anyRequest()
           .authenticated()
       )
-      .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+      .addFilterBefore(
+        securityFilter,
+        UsernamePasswordAuthenticationFilter.class
+      )
       .build();
   }
 

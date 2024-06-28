@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,8 +39,8 @@ public class AlunoContoller {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(map);
     } catch (Exception e) {
       return ResponseEntity
-          .status(HttpStatus.BAD_REQUEST)
-          .body("{\"message\": \"Algo deu errado\"}");
+        .status(HttpStatus.BAD_REQUEST)
+        .body("{\"message\": \"Algo deu errado\"}");
     }
   }
 
@@ -51,8 +50,8 @@ public class AlunoContoller {
       return ResponseEntity.ok(alunoService.alunosAtivosNaoAtivos());
     } catch (Exception e) {
       return ResponseEntity
-          .status(HttpStatus.BAD_REQUEST)
-          .body("{\"message\": \"Algo deu errado\"}");
+        .status(HttpStatus.BAD_REQUEST)
+        .body("{\"message\": \"Algo deu errado\"}");
     }
   }
 
@@ -62,20 +61,21 @@ public class AlunoContoller {
       return ResponseEntity.ok(alunoService.alunos());
     } catch (Exception e) {
       return ResponseEntity
-          .status(HttpStatus.BAD_REQUEST)
-          .body("{\"message\": \"Algo deu errado\"}");
+        .status(HttpStatus.BAD_REQUEST)
+        .body("{\"message\": \"Algo deu errado\"}");
     }
   }
 
   @PostMapping("/register")
   public ResponseEntity<?> register(@RequestBody AlunoCreateDTO aluno) {
-   return ResponseEntity.badRequest().build();
+    return ResponseEntity.badRequest().build();
   }
 
   @PutMapping("/{id}")
   public ResponseEntity<?> update(
-      @RequestBody AlunoDTO aluno,
-      @PathVariable Integer id) {
+    @RequestBody AlunoDTO aluno,
+    @PathVariable Integer id
+  ) {
     try {
       return ResponseEntity.ok(alunoService.update(aluno, id));
     } catch (EntityNotFoundException e) {
@@ -93,8 +93,8 @@ public class AlunoContoller {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMap);
     } catch (Exception e) {
       return ResponseEntity
-          .status(HttpStatus.BAD_REQUEST)
-          .body("{\"message\": \"Algo deu errado\"}");
+        .status(HttpStatus.BAD_REQUEST)
+        .body("{\"message\": \"Algo deu errado\"}");
     }
   }
 
@@ -103,16 +103,16 @@ public class AlunoContoller {
     try {
       alunoService.delete(id);
       return ResponseEntity
-          .status(HttpStatus.OK)
-          .body("{\"message\": \"Aluno deletado com sucesso\"}");
+        .status(HttpStatus.OK)
+        .body("{\"message\": \"Aluno deletado com sucesso\"}");
     } catch (EntityNotFoundException e) {
       Map<String, String> map = new HashMap<>();
       map.put("message", "Aluno não encontrado");
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(map);
     } catch (Exception e) {
       return ResponseEntity
-          .status(HttpStatus.BAD_REQUEST)
-          .body("{\"message\": \"Algo deu errado\"}");
+        .status(HttpStatus.BAD_REQUEST)
+        .body("{\"message\": \"Algo deu errado\"}");
     }
   }
 
@@ -121,16 +121,16 @@ public class AlunoContoller {
     try {
       alunoService.deleteLogic(id);
       return ResponseEntity
-          .status(HttpStatus.OK)
-          .body("{\"message\": \"Aluno deletado com sucesso\"}");
+        .status(HttpStatus.OK)
+        .body("{\"message\": \"Aluno deletado com sucesso\"}");
     } catch (EntityNotFoundException e) {
       Map<String, String> map = new HashMap<>();
       map.put("message", e.getMessage());
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(map);
     } catch (Exception e) {
       return ResponseEntity
-          .status(HttpStatus.BAD_REQUEST)
-          .body("{\"message\": \"Algo deu errado\"}");
+        .status(HttpStatus.BAD_REQUEST)
+        .body("{\"message\": \"Algo deu errado\"}");
     }
   }
 }

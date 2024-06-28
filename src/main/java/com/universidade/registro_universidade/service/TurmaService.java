@@ -8,7 +8,6 @@ import com.universidade.registro_universidade.model.Turma;
 import com.universidade.registro_universidade.repository.TurmaRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -33,7 +32,8 @@ public class TurmaService {
       return turmaOptional.get().toDTO();
     } else {
       throw new EntityNotFoundException(
-          "Turma não encontrado para o ID: " + id);
+        "Turma não encontrado para o ID: " + id
+      );
     }
   }
 
@@ -75,7 +75,6 @@ public class TurmaService {
   }
 
   @Transactional
-
   public TurmaDTO registerProfessorOnTurma(Integer id, Integer idProfessor) {
     try {
       Turma turma = turma(id).toEntity();
@@ -85,8 +84,8 @@ public class TurmaService {
     } catch (Exception e) {
       throw e;
     }
-
   }
+
   @Transactional
   public TurmaDTO registerAlunoOnTurma(Integer id, Integer idAluno) {
     try {
@@ -106,7 +105,6 @@ public class TurmaService {
     } catch (Exception e) {
       throw e;
     }
-
   }
 
   public TurmaDTO deleteLogic(Integer id) {
@@ -122,7 +120,8 @@ public class TurmaService {
       return turmaRepository.save(turma).toDTO();
     } catch (EntityNotFoundException e) {
       throw new EntityNotFoundException(
-          "Professor com ID: " + id + " não encontrado na turma");
+        "Professor com ID: " + id + " não encontrado na turma"
+      );
     } catch (Exception e) {
       throw e;
     }
@@ -138,7 +137,8 @@ public class TurmaService {
       return turmaRepository.save(turma).toDTO();
     } catch (EntityNotFoundException e) {
       throw new EntityNotFoundException(
-          "Aluno com ID: " + id + " não encontrado na turma");
+        "Aluno com ID: " + id + " não encontrado na turma"
+      );
     } catch (Exception e) {
       throw e;
     }
