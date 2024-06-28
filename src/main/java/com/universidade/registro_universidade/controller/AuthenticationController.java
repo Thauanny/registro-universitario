@@ -4,6 +4,8 @@ import com.universidade.registro_universidade.DTO.AlunoCreateDTO;
 import com.universidade.registro_universidade.DTO.AuthenticationDTO;
 import com.universidade.registro_universidade.DTO.PessoaCreateDTO;
 import com.universidade.registro_universidade.DTO.ProfessorCreateDTO;
+import com.universidade.registro_universidade.infra.security.TokenService;
+import com.universidade.registro_universidade.model.Pessoa;
 import com.universidade.registro_universidade.service.AlunoService;
 import com.universidade.registro_universidade.service.ProfessorService;
 import jakarta.validation.ConstraintViolation;
@@ -37,14 +39,22 @@ public class AuthenticationController {
   @Autowired
   private ProfessorService professorService;
 
+  @Autowired
+  private TokenService tokenService;
+
   @PostMapping("/login")
   public ResponseEntity<?> login(@RequestBody @Valid AuthenticationDTO body) {
     var userNamePassword = new UsernamePasswordAuthenticationToken(
       body.getEmail(),
       body.getPassword()
     );
-    var auth = this.authenticationManager.authenticate(userNamePassword); 
-    return ResponseEntity.ok().build();
+    var auth = this.authenticationManager.authenticate(userNamePassword);
+
+    var token = tokenService.generateToken((Pessoa) auth.getPrincipal());
+
+    Map<String, Object> map = new HashMap<>();
+    map.put("token", token);
+    return ResponseEntity.ok().body(map);
   }
 
   @PostMapping("/register")

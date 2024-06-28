@@ -3,6 +3,7 @@ package com.universidade.registro_universidade.infra.security;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.universidade.registro_universidade.model.Pessoa;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -27,7 +28,21 @@ public class TokenService {
         .sign(algorithm);
       return token;
     } catch (JWTCreationException e) {
-        throw new RuntimeException("Error while generating token", e);
+      throw new RuntimeException("Error while generating token", e);
+    }
+  }
+
+  public String validateToken(String token) {
+    try {
+      Algorithm algorithm = Algorithm.HMAC256(secret);
+      return JWT
+        .require(algorithm)
+        .withIssuer("registro-universitario")
+        .build()
+        .verify(token)
+        .getSubject();
+    } catch (JWTVerificationException e) {
+      return "";
     }
   }
 

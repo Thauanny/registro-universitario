@@ -1,5 +1,6 @@
 package com.universidade.registro_universidade.infra.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -11,10 +12,14 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
+
+  @Autowired
+  SecurityFilter securityFilter;
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity)
@@ -26,29 +31,25 @@ public class SecurityConfiguration {
       )
       .authorizeHttpRequests(authorize ->
         authorize
-          .requestMatchers(HttpMethod.PUT, "/professor/deleteLogic")
+          // .requestMatchers(HttpMethod.PUT, "/professor/deleteLogic")
+          // .hasRole("ADMIN")
+          .requestMatchers(HttpMethod.PUT, "/professor/**")
           .hasRole("ADMIN")
-          .requestMatchers(HttpMethod.PUT, "/professor")
-          .hasRole("ADMIN")
-          .requestMatchers(HttpMethod.DELETE, "/professor")
+          .requestMatchers(HttpMethod.DELETE, "/professor/**")
           .hasRole("ADMIN")
           .requestMatchers(HttpMethod.PUT, "/aluno/deleteLogic")
           .hasRole("ADMIN")
-          .requestMatchers(HttpMethod.PUT, "/aluno")
+          .requestMatchers(HttpMethod.PUT, "/aluno/**")
           .hasRole("ADMIN")
-          .requestMatchers(HttpMethod.DELETE, "/aluno")
+          .requestMatchers(HttpMethod.DELETE, "/aluno/**")
           .hasRole("ADMIN")
-          .requestMatchers(HttpMethod.POST, "/turma/register")
+          .requestMatchers(HttpMethod.POST, "/turma/**")
           .hasRole("ADMIN")
-          .requestMatchers(HttpMethod.PUT, "/turma/addProfessor")
+          .requestMatchers(HttpMethod.PUT, "/turma/**")
           .hasRole("ADMIN")
-          .requestMatchers(HttpMethod.PUT, "/turma/addAluno")
+          .requestMatchers(HttpMethod.PUT, "/turma/**")
           .hasRole("ADMIN")
-          .requestMatchers(HttpMethod.PUT, "/turma/deleteLogic")
-          .hasRole("ADMIN")
-          .requestMatchers(HttpMethod.PUT, "/turma")
-          .hasRole("ADMIN")
-          .requestMatchers(HttpMethod.DELETE, "/turma")
+          .requestMatchers(HttpMethod.DELETE, "/turma/**")
           .hasRole("ADMIN")
           .requestMatchers(HttpMethod.POST, "/auth/login")
           .permitAll()
@@ -57,6 +58,7 @@ public class SecurityConfiguration {
           .anyRequest()
           .authenticated()
       )
+      .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
       .build();
   }
 
