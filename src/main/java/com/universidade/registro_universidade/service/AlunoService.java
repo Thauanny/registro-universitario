@@ -5,11 +5,11 @@ import com.universidade.registro_universidade.DTO.AlunoDTO;
 import com.universidade.registro_universidade.model.Aluno;
 import com.universidade.registro_universidade.repository.AlunoRepository;
 import jakarta.persistence.EntityNotFoundException;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +27,8 @@ public class AlunoService {
       return alunoOptional.get().toDTO();
     } else {
       throw new EntityNotFoundException(
-          "Aluno não encontrado para o ID: " + id);
+        "Aluno não encontrado para o ID: " + id
+      );
     }
   }
 
@@ -35,7 +36,7 @@ public class AlunoService {
     List<AlunoDTO> alunoDTOs = new ArrayList<>();
     List<Aluno> alunos = alunoRepository.findAllWhere();
     for (int i = 0; i < alunos.size(); i++) {
-      alunoDTOs.add(alunos.get(i).toDTO()); 
+      alunoDTOs.add(alunos.get(i).toDTO());
     }
     return alunoDTOs;
   }
@@ -44,7 +45,7 @@ public class AlunoService {
     List<AlunoDTO> alunoDTOs = new ArrayList<>();
     List<Aluno> alunos = alunoRepository.findAll();
     for (int i = 0; i < alunos.size(); i++) {
-      alunoDTOs.add(alunos.get(i).toDTO()); 
+      alunoDTOs.add(alunos.get(i).toDTO());
     }
     return alunoDTOs;
   }
@@ -56,33 +57,40 @@ public class AlunoService {
     return alunoRepository.save(alunoEntity).toDTO();
   }
 
-   public AlunoDTO save(Aluno aluno) {
-      return alunoRepository.save(aluno).toDTO();
+  public AlunoDTO save(Aluno aluno) {
+    return alunoRepository.save(aluno).toDTO();
+  }
+
+  public UserDetails findByEmail(String email) {
+    return alunoRepository.findByEmail(email);
   }
 
   public AlunoDTO update(AlunoDTO aluno, Integer id) {
     AlunoDTO responseAluno = aluno(id);
-    if(aluno.getNome() != null && !(aluno.getNome().isEmpty())){
+    if (aluno.getNome() != null && !(aluno.getNome().isEmpty())) {
       responseAluno.setNome(aluno.getNome());
     }
-    if(aluno.getEmail() != null && !(aluno.getEmail().isEmpty())){
+    if (aluno.getEmail() != null && !(aluno.getEmail().isEmpty())) {
       responseAluno.setEmail(aluno.getEmail());
     }
-    if(aluno.getCpf() != null && !(aluno.getCpf().isEmpty())){
+    if (aluno.getCpf() != null && !(aluno.getCpf().isEmpty())) {
       responseAluno.setCpf(aluno.getCpf());
     }
-    if(aluno.getCurso() != null && !(aluno.getCurso().isEmpty())){
+    if (aluno.getCurso() != null && !(aluno.getCurso().isEmpty())) {
       responseAluno.setCurso(aluno.getCurso());
     }
-    if(aluno.getMatricula() != null && !(aluno.getMatricula().isEmpty())){
+    if (aluno.getMatricula() != null && !(aluno.getMatricula().isEmpty())) {
       responseAluno.setMatricula(aluno.getMatricula());
-    } 
-    if(aluno.getGenero() != null){
+    }
+    if (aluno.getGenero() != null) {
       responseAluno.setGenero(aluno.getGenero());
     }
-    if(aluno.getDataNascimento() != null && !(aluno.getDataNascimento().isEmpty())){
+    if (
+      aluno.getDataNascimento() != null &&
+      !(aluno.getDataNascimento().isEmpty())
+    ) {
       responseAluno.setDataNascimento(aluno.getDataNascimento());
-    } 
+    }
     return alunoRepository.save(responseAluno.toEntity()).toDTO();
   }
 

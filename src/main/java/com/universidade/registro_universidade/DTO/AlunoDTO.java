@@ -6,8 +6,7 @@ import java.util.stream.Collectors;
 
 import com.universidade.registro_universidade.model.Aluno;
 
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,8 +18,6 @@ import lombok.Setter;
 @Setter
 public class AlunoDTO extends PessoaDTO {
 
- // @NotNull(message = "O valor não pode ser vazio")
- // @NotEmpty(message = "O valor não pode ser em branco")
   private String curso;
 
   private List<TurmaResumedDTO> turmas = new ArrayList<>();
@@ -36,6 +33,8 @@ public class AlunoDTO extends PessoaDTO {
       aluno.setDataNascimento(this.getDataNascimento());
       aluno.setCurso(this.getCurso());
       aluno.setGenero(this.getGenero());
+      aluno.setRole(this.getRole());
+      aluno.setType(this.getType());
       aluno.setMatricula(this.getMatricula());
       if (this.getTurmas() != null && !this.getTurmas().isEmpty()) {
         aluno.setTurmas(this.getTurmas().stream().map(TurmaResumedDTO::toEntity).collect(Collectors.toList()));
@@ -57,6 +56,8 @@ public class AlunoDTO extends PessoaDTO {
       aluno.setDataNascimento(this.getDataNascimento());
       aluno.setGenero(this.getGenero());
       aluno.setMatricula(this.getMatricula());
+      aluno.setType(this.getType());
+      aluno.setRole(this.getRole());
       return aluno;
     } catch (Exception e) {
       throw new RuntimeException("Erro ao converter DTO em Entity", e);

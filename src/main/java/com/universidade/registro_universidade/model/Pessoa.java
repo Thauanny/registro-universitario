@@ -76,6 +76,10 @@ public class Pessoa implements UserDetails {
   @Enumerated(EnumType.STRING)
   private ROLE role;
 
+  @Column(name = "type")
+  @Enumerated(EnumType.STRING)
+  private PESSOATYPE type;
+
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
     if (this.role == ROLE.ADMIN) return List.of(

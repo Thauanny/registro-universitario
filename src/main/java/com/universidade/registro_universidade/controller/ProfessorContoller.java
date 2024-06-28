@@ -70,31 +70,7 @@ public class ProfessorContoller {
 
   @PostMapping("/register")
   public ResponseEntity<?> register(@RequestBody ProfessorCreateDTO professor) {
-    try {
-      return ResponseEntity.ok(professorService.register(professor));
-    } catch (ConstraintViolationException ex) {
-      Map<String, Object> errorMap = new HashMap<>();
-      List<String> errorMessages = new ArrayList<>();
-      for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
-        errorMessages.add(violation.getMessage());
-      }
-      errorMap.put("message", errorMessages);
-
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMap);
-    } catch (IllegalArgumentException ex) {
-      Map<String, Object> errorMap = new HashMap<>();
-      errorMap.put("message", ex.getMessage().replaceAll("raw", ""));
-
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMap);
-    } catch (DataIntegrityViolationException e) {
-      return ResponseEntity
-          .status(HttpStatus.BAD_REQUEST)
-          .body("{\"message\": \"Dados CPF ou Email já cadastrados\"}");
-    } catch (Exception e) {
-      return ResponseEntity
-          .status(HttpStatus.BAD_REQUEST)
-          .body("{\"message\": \"Algo deu errado\"}");
-    }
+    return ResponseEntity.badRequest().build();
   }
 
   @PutMapping("/{id}")

@@ -1,13 +1,11 @@
 package com.universidade.registro_universidade.DTO;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.universidade.registro_universidade.model.Professor;
 import com.universidade.registro_universidade.model.Turma;
-
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,11 +17,8 @@ import lombok.Setter;
 @Setter
 public class ProfessorCreateDTO extends PessoaCreateDTO {
 
-  @NotNull(message = "O valor não pode ser vazio")
-  @NotEmpty(message = "O valor não pode ser em branco")
   private String departamento;
 
-  @NotNull(message = "O valor não pode ser vazio")
   private float salario;
 
   private List<Turma> turmas = new ArrayList<>();
@@ -41,11 +36,11 @@ public class ProfessorCreateDTO extends PessoaCreateDTO {
       professor.setDepartamento(this.getDepartamento());
       professor.setGenero(this.getGenero());
       professor.setMatricula(this.getMatricula());
+      professor.setRole(this.getRole());
+      professor.setType(this.getType());
       return professor;
     } catch (Exception e) {
       throw new RuntimeException("Erro ao converter DTO em Entity", e);
     }
-
   }
-
 }

@@ -4,13 +4,12 @@ import com.universidade.registro_universidade.DTO.ProfessorCreateDTO;
 import com.universidade.registro_universidade.DTO.ProfessorDTO;
 import com.universidade.registro_universidade.model.Professor;
 import com.universidade.registro_universidade.repository.ProfessorRepository;
-
 import jakarta.persistence.EntityNotFoundException;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +27,8 @@ public class ProfessorService {
       return alunoOptional.get().toDTO();
     } else {
       throw new EntityNotFoundException(
-          "Professor não encontrado para o ID: " + id);
+        "Professor não encontrado para o ID: " + id
+      );
     }
   }
 
@@ -36,7 +36,7 @@ public class ProfessorService {
     List<ProfessorDTO> alunoDTOs = new ArrayList<>();
     List<Professor> alunos = professorRepository.findAllWhere();
     for (int i = 0; i < alunos.size(); i++) {
-      alunoDTOs.add(alunos.get(i).toDTO()); 
+      alunoDTOs.add(alunos.get(i).toDTO());
     }
     return alunoDTOs;
   }
@@ -45,7 +45,7 @@ public class ProfessorService {
     List<ProfessorDTO> alunoDTOs = new ArrayList<>();
     List<Professor> alunos = professorRepository.findAll();
     for (int i = 0; i < alunos.size(); i++) {
-      alunoDTOs.add(alunos.get(i).toDTO()); 
+      alunoDTOs.add(alunos.get(i).toDTO());
     }
     return alunoDTOs;
   }
@@ -54,42 +54,54 @@ public class ProfessorService {
     professor.setPassword(passwordEncoder.encode(professor.getPassword()));
     Professor professorEntity = professor.toEntity();
     professorEntity.setAtivo(true);
-      return professorRepository.save(professorEntity).toDTO();
+    return professorRepository.save(professorEntity).toDTO();
   }
 
   public ProfessorDTO save(Professor professor) {
-      return professorRepository.save(professor).toDTO();
+    return professorRepository.save(professor).toDTO();
+  }
+
+  public UserDetails findByEmail(String email) {
+    return professorRepository.findByEmail(email);
   }
 
   public ProfessorDTO update(ProfessorDTO professor, Integer id) {
     ProfessorDTO responseProfessor = professor(id);
-    if(professor.getNome() != null && !(professor.getNome().isEmpty())){
+    if (professor.getNome() != null && !(professor.getNome().isEmpty())) {
       responseProfessor.setNome(professor.getNome());
     }
-    if(professor.getEmail() != null && !(professor.getEmail().isEmpty())){
+    if (professor.getEmail() != null && !(professor.getEmail().isEmpty())) {
       responseProfessor.setEmail(professor.getEmail());
     }
-    if(professor.getCpf() != null && !(professor.getCpf().isEmpty())){
+    if (professor.getCpf() != null && !(professor.getCpf().isEmpty())) {
       responseProfessor.setCpf(professor.getCpf());
     }
-    if(professor.getDepartamento() != null && !(professor.getDepartamento().isEmpty())){
+    if (
+      professor.getDepartamento() != null &&
+      !(professor.getDepartamento().isEmpty())
+    ) {
       responseProfessor.setDepartamento(professor.getDepartamento());
     }
-    if(professor.getTurmas() != null && !(professor.getTurmas().isEmpty())){
+    if (professor.getTurmas() != null && !(professor.getTurmas().isEmpty())) {
       responseProfessor.setTurmas(professor.getTurmas());
-    } 
-    if(professor.getSalario() != 0){
+    }
+    if (professor.getSalario() != 0) {
       responseProfessor.setSalario(professor.getSalario());
     }
-    if(professor.getMatricula() != null && !(professor.getMatricula().isEmpty())){
+    if (
+      professor.getMatricula() != null && !(professor.getMatricula().isEmpty())
+    ) {
       responseProfessor.setMatricula(professor.getMatricula());
-    } 
-    if(professor.getGenero() != null){
+    }
+    if (professor.getGenero() != null) {
       responseProfessor.setGenero(professor.getGenero());
     }
-    if(professor.getDataNascimento() != null && !(professor.getDataNascimento().isEmpty())){
+    if (
+      professor.getDataNascimento() != null &&
+      !(professor.getDataNascimento().isEmpty())
+    ) {
       responseProfessor.setDataNascimento(professor.getDataNascimento());
-    } 
+    }
     return professorRepository.save(responseProfessor.toEntity()).toDTO();
   }
 

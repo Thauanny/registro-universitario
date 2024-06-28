@@ -1,12 +1,10 @@
 package com.universidade.registro_universidade.DTO;
 
-import java.util.List;
-
 import com.universidade.registro_universidade.model.Aluno;
 import com.universidade.registro_universidade.model.Turma;
-
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,8 +16,7 @@ import lombok.Setter;
 @Setter
 public class AlunoCreateDTO extends PessoaCreateDTO {
 
-  @NotNull(message = "O valor não pode ser vazio")
-  @NotEmpty(message = "O valor não pode ser em branco")
+
   private String curso;
 
   private List<Turma> turmas;
@@ -34,8 +31,8 @@ public class AlunoCreateDTO extends PessoaCreateDTO {
     aluno.setCurso(this.getCurso());
     aluno.setGenero(this.getGenero());
     aluno.setMatricula(this.getMatricula());
+    aluno.setRole(this.getRole());
+    aluno.setType(this.getType());
     return aluno;
   }
-
-
 }

@@ -19,11 +19,9 @@ import lombok.Setter;
 @Setter
 public class ProfessorDTO extends PessoaDTO {
 
-  @NotNull(message = "O valor não pode ser vazio")
-  @NotEmpty(message = "O valor não pode ser em branco")
+
   private String departamento;
 
-  @NotNull(message = "O valor não pode ser vazio")
   private float salario;
 
   @JsonIgnoreProperties({ "professor" })
@@ -42,6 +40,8 @@ public class ProfessorDTO extends PessoaDTO {
       professor.setDepartamento(this.getDepartamento());
       professor.setGenero(this.getGenero());
       professor.setMatricula(this.getMatricula());
+      professor.setRole(this.getRole());
+      professor.setType(this.getType());
       return professor;
     } catch (Exception e) {
       throw new RuntimeException("Erro ao converter DTO em Entity", e);

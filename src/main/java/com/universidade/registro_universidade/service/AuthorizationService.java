@@ -1,7 +1,5 @@
 package com.universidade.registro_universidade.service;
 
-import com.universidade.registro_universidade.model.Aluno;
-import com.universidade.registro_universidade.model.Professor;
 import com.universidade.registro_universidade.repository.AlunoRepository;
 import com.universidade.registro_universidade.repository.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;

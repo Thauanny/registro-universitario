@@ -1,6 +1,9 @@
 package com.universidade.registro_universidade.DTO;
 
 import com.universidade.registro_universidade.model.GENERO;
+import com.universidade.registro_universidade.model.PESSOATYPE;
+import com.universidade.registro_universidade.model.ROLE;
+
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Email;
@@ -47,4 +50,11 @@ public class PessoaCreateDTO {
   @NotNull(message = "O valor não pode ser vazio")
   @NotEmpty(message = "O valor não pode ser em branco")
   private String dataNascimento;
+
+  @NotNull(message = "O valor não pode ser vazio")
+  private ROLE role;
+
+  @NotNull(message = "O valor não pode ser vazio")
+  @Enumerated(EnumType.STRING)
+  private PESSOATYPE type;
 }
